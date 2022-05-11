@@ -17,6 +17,8 @@ function database:OnConnected()
     query:Execute()
 end
 
+database:Connect()
+
 function NMG.AttachmentShop.InsertPresetItem(steam_id, preset_id, preset_item)
     local query = database:Insert("nmg_attachmenshop")
         query:Insert("steam_id", steam_id)
@@ -33,7 +35,7 @@ function NMG.AttachmentShop.DeletePreset(steam_id, preset_id)
 end
 
 function NMG.AttachmentShop.SelectPresetItem(steam_id, preset_id, callback)
-    local query = database:Delete("nmg_attachmenshop")
+    local query = database:Select("nmg_attachmenshop")
         query:Where("steam_id", steam_id)
         query:Where("preset_id", preset_id)
         query:Callback(function (tblData)
