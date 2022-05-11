@@ -8,7 +8,7 @@ local database = VoidLib.Database:Create({
 })
 
 function database:OnConnected()
-    local query = database:Create("ngm_attachmenshop")
+    local query = database:Create("nmg_attachmenshop")
         query:Create("id", "INTEGER NOT NULL AUTO_INCREMENT")
         query:Create("steam_id", "VARCHAR(35) NOT NULL")
         query:Create("preset_id", "INTEGER")
@@ -18,7 +18,7 @@ function database:OnConnected()
 end
 
 function NMG.AttachmentShop.InsertPresetItem(steam_id, preset_id, preset_item)
-    local query = database:Insert("ngm_attachmenshop")
+    local query = database:Insert("nmg_attachmenshop")
         query:Insert("steam_id", steam_id)
         query:Insert("preset_id", preset_id)
         query:Insert("preset_item", preset_item)
@@ -26,14 +26,14 @@ function NMG.AttachmentShop.InsertPresetItem(steam_id, preset_id, preset_item)
 end
 
 function NMG.AttachmentShop.DeletePreset(steam_id, preset_id)
-    local query = database:Delete("ngm_attachmenshop")
+    local query = database:Delete("nmg_attachmenshop")
         query:Where("steam_id", steam_id)
         query:Where("preset_id", preset_id)
     query:Execute()
 end
 
 function NMG.AttachmentShop.SelectPresetItem(steam_id, preset_id, callback)
-    local query = database:Delete("ngm_attachmenshop")
+    local query = database:Delete("nmg_attachmenshop")
         query:Where("steam_id", steam_id)
         query:Where("preset_id", preset_id)
         query:Callback(function (tblData)
