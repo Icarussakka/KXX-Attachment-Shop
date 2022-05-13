@@ -52,14 +52,27 @@ function PANEL:GetAttachments()
         draw.SimpleText("Aufsätze", "VoidUI.R34", 480, 30, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     end
 
-    self.weaponPanel = attachmentPanel:Add("VoidUI.BackgroundPanel")
-    self.weaponPanel:Dock(LEFT)
-    self.weaponPanel:DockMargin(10,70,10,10)
-    self.weaponPanel:SSetSize(attachmentPanel:GetWide() / 2 - 45 , 0)
-    self.weaponPanel.Paint = function (s,w,h)
-        draw.RoundedBox(12, 0, 0, w, h, VoidUI.Colors.White)
-    end
+    self.weaponBackgroundPanel = attachmentPanel:Add("VoidUI.BackgroundPanel")
+    self.weaponBackgroundPanel:Dock(LEFT)
+    self.weaponBackgroundPanel:DockMargin(10,70,10,10)
+    self.weaponBackgroundPanel:SSetSize(attachmentPanel:GetWide() / 2 - 45 , 0)
 
+
+    -- self.weaponBackgroundPanel.Paint = function (s,w,h)
+    --     draw.RoundedBox(12, 0, 0, w, h, VoidUI.Colors.White)
+    -- end
+
+    for _, wep in ipairs(LocalPlayer():GetWeapons()) do
+        local className = wep:GetClass()
+
+        if not NMG.AttachmentShop.WeaponAttachments[className] then continue end
+
+        self.weaponPanel = self.weaponBackgroundPanel:Add("NMG.AttachmentShop.ItemDetails")
+        self.weaponPanel:Dock(TOP)
+        self.weaponPanel:DockMargin(0,0,0,10)
+        self.weaponPanel:SetItem(className)
+
+    end
 end
 
 function PANEL:GetShoppingCart()
