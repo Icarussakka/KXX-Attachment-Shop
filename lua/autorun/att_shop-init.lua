@@ -8,7 +8,8 @@ if SERVER then
     util.AddNetworkString("NMG.AttachmentShop.DeletePreset")
 
     include("sv_att-shop.lua")
-    AddCSLuaFile("attachment_shop/vgui/attachment_shop-panel.lua")
+    AddCSLuaFile("attachment_shop/vgui/cl_attachmentshop.lua")
+    AddCSLuaFile("attachment_shop/vgui/.lua")
     AddCSLuaFile("attachment_shop/sh_att-shop.lua")
 
     if (VoidLib) then
@@ -23,5 +24,6 @@ if SERVER then
 end
 
 if CLIENT then
-    include("attachment_shop/vgui/attachment_shop-panel.lua")
+    include("attachment_shop/vgui/cl_attachmentshop.lua")
+    include("attachment_shop/vgui/cl_itemdetails.lua")
 end

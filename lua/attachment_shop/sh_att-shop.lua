@@ -18,7 +18,7 @@ NMG.AttachmentShop.PresetButton = {
     {
         name = "Speichern",
         color = VoidUI.Colors.Green,
-        buttonFunc = function(presetUD, attachmentTable)
+        buttonFunc = function(presetID, attachmentTable)
             // coming
         end
     },
@@ -31,3 +31,11 @@ NMG.AttachmentShop.PresetButton = {
         end
     },
 }
+
+NMG.AttachmentShop.WeaponAttachments = {
+    ["cw_ak74"] = {
+    },
+    ["cw_ar15"] = {
+    },
+}
+
