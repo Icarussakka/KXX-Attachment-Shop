@@ -92,9 +92,7 @@ function PANEL:GetAttachments()
                     if ShoppingCart[attachmentData] then return end
                     ShoppingCart[attachmentData] = true
 
-                    timer.Simple(0.1, function()
-                        self:GetShoppingCart()
-                    end)
+                    self:GetShoppingCart()
                 end
             end
         end
@@ -127,14 +125,39 @@ function PANEL:GetShoppingCart()
         self.shoppingcart:SetItem(attachment)
         self.shoppingcart:SetAttachment(true)
         self.shoppingcart:ShoppingCartDetail(true)
+        self.shoppingcart.DoClick = function()
+            ShoppingCart[attachment] = nil
+            self:GetShoppingCart()
+        end
     end
+
+    local attachmentPrice = 0
+    for attachment, _ in pairs(ShoppingCart) do
+        attachmentPrice = attachmentPrice + NMG.AttachmentShop.ItemData[attachment].price
+    end
+
+    local hasMoney = LocalPlayer():canAfford(attachmentPrice)
 
     self.buyButton = self.cartPanel:Add("VoidUI.Button")
     self.buyButton:Dock(BOTTOM)
     self.buyButton:DockMargin(0,0,0,10)
     self.buyButton:SSetSize(250, 35)
-    self.buyButton:SetText("Kaufen")
+    self.buyButton:SetColor(hasMoney and VoidUI.Colors.Green or VoidUI.Colors.Red)
+    self.buyButton:SetText("Kaufen für " .. DarkRP.formatMoney(attachmentPrice))
     self.buyButton.DoClick = function()
+        if not hasMoney then
+            VoidLib.Notify("Aufsatz Shop", "Du hast nicht genügend Geld um die Aufsätze zu kaufen!", VoidUI.Colors.Red, 5)
+            self:Remove()
+            return
+        end
+
+        net.Start("NMG.AttachmentShop.BuyAttachments")
+            net.WriteUInt(table.Count(ShoppingCart), 5)
+        for attachment, _ in pairs(ShoppingCart) do
+            net.WriteString(attachment)
+        end
+        net.SendToServer()
+
         table.Empty(ShoppingCart)
         self:Remove()
     end

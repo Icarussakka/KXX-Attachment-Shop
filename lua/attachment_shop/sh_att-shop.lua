@@ -34,49 +34,57 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
     }
 end)
 
-NMG.AttachmentShop.WeaponAttachments = {
-    ["cw_ak74"] = {
-        ["cw_attpack_sights_sniper"] = true,
-        ["cw_attpack_sights_cqb"] = true,
-    },
-    ["cw_ar15"] = {
-        ["cw_attpack_sights_cqb"] = true,
-        ["cw_attpack_sights_sniper"] = true,
-        ["cw_attpack_ak74_barrels"] = true,
-    },
-}
-
-NMG.AttachmentShop.ItemData = {
-    // add here weapons
-    ["cw_ak74"] = {
-        printName = "AK-74",
-        --icon = "",
-        description = "Kaliber: 5.45x39mm",
-    },
-    ["cw_ar15"] = {
-        printName = "AR-15",
-        --icon = "",
-        description = "Kaliber: 5.56x45mm",
-    },
-
-    // add here attachments
-    ["cw_attpack_sights_sniper"] = {
-        printName = "Scharfschützen Visiere",
-        description = "Für AR-15 und AK-47 P",
-    },
-    ["cw_attpack_sights_cqb"] = {
-        printName = "Normale Visiere",
-        description = "Für AR-15 und AK-47",
-    },
-    ["cw_attpack_ak74_barrels"] = {
-        printName = "Mieser barrel",
-        description = "Für AR-15",
-    },
-}
-
-if CLIENT then
-    NMG.AttachmentShop.FallbackIcons = {
-        textureFallback = surface.GetTextureID(" "),
-        materialFallback = Material(" "),
+timer.Simple(0, function() //darkrp du hurensohn
+    NMG.AttachmentShop.WeaponAttachments = {
+        ["cw_ak74"] = {
+            ["cw_attpack_sights_sniper"] = true,
+            ["cw_attpack_sights_cqb"] = true,
+        },
+        ["cw_ar15"] = {
+            ["md_eotech"] = true,
+            ["md_aimpoint"] = true,
+            ["md_acog"] = true,
+        },
     }
-end
+
+    NMG.AttachmentShop.ItemData = {
+        // add here weapons
+        ["cw_ak74"] = {
+            printName = "AK-74",
+            icon = " ",
+            description = "Kaliber: 5.45x39mm",
+        },
+        ["cw_ar15"] = {
+            printName = "AR-15",
+            icon = " ",
+            description = "Kaliber: 5.56x45mm",
+        },
+
+          // add here attachments
+        ["md_eotech"] = {
+            printName = "EoTech",
+            price = 500,
+            icon = "atts/eotech553",
+            description = "Preis | " .. DarkRP.formatMoney(500),
+        },
+        ["md_aimpoint"] = {
+            printName = "Aimpoint",
+            price = 1800,
+            icon = "atts/compm4",
+            description = "Preis | " .. DarkRP.formatMoney(1800),
+        },
+        ["md_acog"] = {
+            printName = "ACOG",
+            price = 100,
+            icon = "atts/acog",
+            description = "Preis | " .. DarkRP.formatMoney(100),
+        },
+    }
+
+    if CLIENT then
+        NMG.AttachmentShop.FallbackIcons = {
+            textureFallback = surface.GetTextureID(" "),
+            materialFallback = Material(" "),
+        }
+    end
+end)

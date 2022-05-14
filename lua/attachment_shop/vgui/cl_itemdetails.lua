@@ -1,5 +1,9 @@
 local PANEL = {}
 
+function PANEL:SetAttachment(bool)
+    self.attachment = bool or false
+end
+
 function PANEL:SetItem(classname)
     self.item = NMG.AttachmentShop.ItemData[classname]
 end
@@ -12,9 +16,6 @@ function PANEL:ShoppingCartDetail(bool)
     self.shoppingcartdetail = bool or false
 end
 
-function PANEL:SetAttachment(bool)
-    self.attachment = bool or false
-end
 
 function PANEL:Init()
     self:SetText("")
@@ -22,7 +23,7 @@ function PANEL:Init()
 end
 
 function PANEL:OnCursorEntered()
-   if self.shopdetail or self.shoppingcartdetail then  
+   if self.shopdetail or self.shoppingcartdetail then
 
         if not IsValid(self.hoverdetail) then
             self.hoverdetail = vgui.Create("Panel")
@@ -31,13 +32,15 @@ function PANEL:OnCursorEntered()
         self.hoverdetail:SetDrawOnTop(true)
         self.hoverdetail:SetPos(input.GetCursorPos())
 
-        if self.shopdetail then 
+        if self.shopdetail then
             self.hoverdetail:SSetSize(300, 75)
         else
             self.hoverdetail:SSetSize(320, 75)
         end
+
         self.hoverdetail:Show()
         self.hoverdetail.Paint = function(s, w, h)
+            if not IsValid(self) then return end
             self.hoverdetail:SetPos(input.GetCursorPos())
             draw.RoundedBox(12, 0, 0, w, h, VoidUI.Colors.Primary)
 
@@ -61,6 +64,12 @@ function PANEL:OnCursorExited()
     end
 end
 
+function PANEL:DoClick()
+    if IsValid(self.hoverdetail) then
+        self.hoverdetail:Remove()
+    end
+end
+
 function PANEL:Paint(w, h)
     if self:IsHovered() then
         draw.RoundedBox(3, 0, 0, w, h, VoidUI.Colors.BackgroundTransparent)
@@ -71,11 +80,13 @@ function PANEL:Paint(w, h)
     //draws the icon
     surface.SetDrawColor(color_white)
     if self.attachment then
-        surface.SetTexture(self.item.icon or NMG.AttachmentShop.FallbackIcons.textureFallback)
+        surface.SetTexture(surface.GetTextureID(self.item.icon) or NMG.AttachmentShop.FallbackIcons.textureFallback)
     else
-        surface.SetMaterial(self.item.icon or NMG.AttachmentShop.FallbackIcons.materialFallback)
+        surface.SetMaterial(Material(self.item.icon) or NMG.AttachmentShop.FallbackIcons.materialFallback)
     end
-    surface.DrawTexturedRect(15, 15, 40, 40)
+    surface.DrawTexturedRect(5, 10, 50, 50)
+
+    draw.RoundedBox(0, 65, 5, 1, h - 10, VoidUI.Colors.White)
 
     // draws the text
     if self.shoppingcartdetail then
@@ -88,3 +99,4 @@ function PANEL:Paint(w, h)
 end
 
 vgui.Register("NMG.AttachmentShop.ItemDetails", PANEL, "DButton")
+
