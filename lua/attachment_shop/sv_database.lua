@@ -38,9 +38,13 @@ function NMG.AttachmentShop.SelectPresetItem(steam_id, preset_id, callback)
     local query = database:Select("nmg_attachmenshop")
         query:Where("steam_id", steam_id)
         query:Where("preset_id", preset_id)
-        query:Callback(function (tblData)
-            for k, preset in ipairs(tblData) do
-                // coming
+        query:Callback(function(tblData)
+            if not tblData then
+                callback(nil)
+                return
+            end
+            for _, preset in ipairs(tblData) do
+                callback(preset.preset_item)
             end
         end)
     query:Execute()
