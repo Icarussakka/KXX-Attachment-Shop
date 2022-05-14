@@ -4,6 +4,14 @@ function PANEL:SetItem(classname)
     self.item = NMG.AttachmentShop.ItemData[classname]
 end
 
+function PANEL:ShopDetail(bool)
+    self.shopdetail = bool or false
+end
+
+function PANEL:ShoppingCartDetail(bool)
+    self.shoppingcartdetail = bool or false
+end
+
 function PANEL:SetAttachment(bool)
     self.attachment = bool or false
 end
@@ -11,6 +19,46 @@ end
 function PANEL:Init()
     self:SetText("")
     self:SSetSize(150, 70)
+end
+
+function PANEL:OnCursorEntered()
+   if self.shopdetail or self.shoppingcartdetail then  
+
+        if not IsValid(self.hoverdetail) then
+            self.hoverdetail = vgui.Create("Panel")
+        end
+
+        self.hoverdetail:SetDrawOnTop(true)
+        self.hoverdetail:SetPos(input.GetCursorPos())
+
+        if self.shopdetail then 
+            self.hoverdetail:SSetSize(300, 75)
+        else 
+            self.hoverdetail:SSetSize(320, 75)
+        end
+        self.hoverdetail:Show()
+        self.hoverdetail.Paint = function(s, w, h)
+            self.hoverdetail:SetPos(input.GetCursorPos())
+            draw.RoundedBox(12, 0, 0, w, h, VoidUI.Colors.Primary)
+
+            if self.shopdetail then
+                draw.SimpleText("Zum Warenkorb hinzufügen", "VoidUI.R26", w / 2, h / 2, VoidUI.Colors.Green, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                surface.SetDrawColor(VoidUI.Colors.Green)
+            else
+                draw.SimpleText("Aus dem Warenkorb entfernen", "VoidUI.R26", w / 2, h / 2, VoidUI.Colors.Red, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                surface.SetDrawColor(VoidUI.Colors.Red)
+            end
+            surface.DrawOutlinedRect(0, 0, w, h, 3)
+        end
+    end
+end
+
+function PANEL:OnCursorExited()
+    if  self.shopdetail or self.shoppingcartdetail then
+        if not IsValid(self.hoverdetail) then return end
+
+        self.hoverdetail:Remove()
+    end
 end
 
 function PANEL:Paint(w, h)
@@ -22,17 +70,15 @@ function PANEL:Paint(w, h)
 
     //draws the icon
     surface.SetDrawColor(color_white)
-
     if self.attachment then
         surface.SetTexture(self.item.icon or NMG.AttachmentShop.FallbackIcons.textureFallback)
     else
         surface.SetMaterial(self.item.icon or NMG.AttachmentShop.FallbackIcons.materialFallback)
     end
-
     surface.DrawTexturedRect(15, 15, 40, 40)
 
     // draws the text
-    draw.SimpleText(self.item.printName, "VoidUI.R26", self:GetWide() / 2 , 20, VoidUI.Colors.White, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+    draw.SimpleText(self.item.printName, "VoidUI.R26", self:GetWide() / 2 - 70 , 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
     draw.SimpleText(self.item.description, "VoidUI.R18", self:GetWide() / 2 - 70 , 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
 end
 
