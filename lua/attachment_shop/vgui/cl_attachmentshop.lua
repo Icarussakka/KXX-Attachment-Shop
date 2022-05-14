@@ -110,7 +110,7 @@ function PANEL:GetShoppingCart()
     self.cartPanel:Dock(RIGHT)
     self.cartPanel:SSetSize(250, 0)
     self.cartPanel:DockMargin(15,15,15,0)
-    self.cartPanel:SetTitle("Warenkorb")
+    self.cartPanel:SetTitle("Warenkorb" .. " | " .. table.Count(ShoppingCart) .. " Aufsätze")
 
     self.attachmentCartPanel = self.cartPanel:Add("VoidUI.BackgroundPanel")
     self.attachmentCartPanel:Dock(FILL)
