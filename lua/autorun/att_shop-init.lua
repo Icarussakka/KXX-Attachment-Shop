@@ -14,16 +14,21 @@ if SERVER then
 
     util.AddNetworkString("NMG.AttachmentShop.BuyAttachments")
     util.AddNetworkString("NMG.AttachmentShop.DeletePreset")
+    util.AddNetworkString("NMG.AttachmentShop.SavePreset")
+    util.AddNetworkString("NMG.AttachmentShop.SelectPreset")
+    util.AddNetworkString("NMG.AttachmentShop.SendPresetToClient")
 
     include("sv_att-shop.lua")
     AddCSLuaFile("attachment_shop/vgui/cl_attachmentshop.lua")
     AddCSLuaFile("attachment_shop/vgui/cl_itemdetails.lua")
     AddCSLuaFile("attachment_shop/sh_att-shop.lua")
+    AddCSLuaFile("attachment_shop/cl_att-shop.lua")
 end
 
 if CLIENT then
     include("attachment_shop/vgui/cl_attachmentshop.lua")
     include("attachment_shop/vgui/cl_itemdetails.lua")
+    include("attachment_shop/cl_att-shop.lua")
 end
 
 include("attachment_shop/sh_att-shop.lua")

@@ -20,15 +20,35 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
             name = "Speichern",
             color = VoidUI.Colors.Green,
             buttonFunc = function(presetID, attachmentTable)
-                // coming
+                if table.IsEmpty(attachmentTable) then
+                    VoidLib.Notify("Attachment Shop", "Dein Warenkorb ist leer! Du musst diesen befüllen um etwas speichern zu können!", VoidUI.Colors.Red, 5)
+                    return
+                end
+
+                net.Start("NMG.AttachmentShop.SavePreset")
+                    net.WriteUInt(table.Count(attachmentTable), 5)
+                    net.WriteUInt(presetID, 3)
+                    for attachment, _ in pairs(attachmentTable) do
+                        net.WriteString(attachment)
+                    end
+                net.SendToServer()
             end
         },
         // Select Button
         {
             name = "Auswählen",
             color = VoidUI.Colors.Blue,
-            buttonFunc = function()
-                // coming
+            buttonFunc = function(presetID, attachmentTable)
+                if presetID == 0 then
+                    VoidLib.Notify("Attachment Shop", "Du must ein Preset auswählen!", VoidUI.Colors.Red, 5)
+                    return
+                end
+
+                table.Empty(attachmentTable)
+
+                net.Start("NMG.AttachmentShop.SelectPreset")
+                    net.WriteUInt(presetID, 3)
+                net.SendToServer()
             end
         },
     }

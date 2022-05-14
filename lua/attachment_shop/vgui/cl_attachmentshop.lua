@@ -1,5 +1,5 @@
 local PANEL = {}
-local ShoppingCart = ShoppingCart or {}
+NMG.AttachmentShop.ShoppingCart = NMG.AttachmentShop.ShoppingCart or {}
 
 function PANEL:Init()
     self:SetTitle("Aufsatz Händler")
@@ -36,11 +36,17 @@ function PANEL:GetPresets()
     for _, buttonData in ipairs(NMG.AttachmentShop.PresetButton) do
         self.presetButton = self.presetPanel:Add("VoidUI.Button")
         self.presetButton:Dock(BOTTOM)
-        self.presetButton:DockMargin(15,15,10,10)
+        self.presetButton:DockMargin(15,15,10,0)
         self.presetButton:SSetSize(250, 35)
         self.presetButton:SetColor(buttonData.color)
         self.presetButton:SetText(buttonData.name)
-        self.presetButton.DoClick = buttonData.buttonFunc
+        self.presetButton.DoClick = function()
+            buttonData.buttonFunc(GetConVar("NMG.AttachmentShop.Preset"):GetInt(), NMG.AttachmentShop.ShoppingCart)
+
+            timer.Simple(0.1, function()
+                self:GetShoppingCart()
+            end)
+        end
     end
 end
 
@@ -89,9 +95,9 @@ function PANEL:GetAttachments()
                 self.attachmentPanel:SetAttachment(true)
                 self.attachmentPanel:ShopDetail(true)
                 self.attachmentPanel.DoClick = function()
-                    if ShoppingCart[attachmentData] then return end
-                    ShoppingCart[attachmentData] = true
+                    if NMG.AttachmentShop.ShoppingCart[attachmentData] then return end
 
+                    NMG.AttachmentShop.ShoppingCart[attachmentData] = true
                     self:GetShoppingCart()
                 end
             end
@@ -108,7 +114,7 @@ function PANEL:GetShoppingCart()
     self.cartPanel:Dock(RIGHT)
     self.cartPanel:SSetSize(250, 0)
     self.cartPanel:DockMargin(15,15,15,0)
-    self.cartPanel:SetTitle("Warenkorb" .. " | " .. table.Count(ShoppingCart) .. " Aufsätze")
+    self.cartPanel:SetTitle("Warenkorb" .. " | " .. table.Count(NMG.AttachmentShop.ShoppingCart) .. " Aufsätze")
 
     self.attachmentCartPanel = self.cartPanel:Add("VoidUI.BackgroundPanel")
     self.attachmentCartPanel:Dock(FILL)
@@ -118,7 +124,7 @@ function PANEL:GetShoppingCart()
     local scrollPanel = self.attachmentCartPanel:Add("VoidUI.ScrollPanel")
     scrollPanel:Dock(FILL)
 
-    for attachment, _ in pairs(ShoppingCart) do
+    for attachment, _ in pairs(NMG.AttachmentShop.ShoppingCart) do
         self.shoppingcart = scrollPanel:Add("NMG.AttachmentShop.ItemDetails")
         self.shoppingcart:Dock(TOP)
         self.shoppingcart:DockMargin(0,10,0,0)
@@ -126,13 +132,13 @@ function PANEL:GetShoppingCart()
         self.shoppingcart:SetAttachment(true)
         self.shoppingcart:ShoppingCartDetail(true)
         self.shoppingcart.DoClick = function()
-            ShoppingCart[attachment] = nil
+            NMG.AttachmentShop.ShoppingCart[attachment] = nil
             self:GetShoppingCart()
         end
     end
 
     local attachmentPrice = 0
-    for attachment, _ in pairs(ShoppingCart) do
+    for attachment, _ in pairs(NMG.AttachmentShop.ShoppingCart) do
         attachmentPrice = attachmentPrice + NMG.AttachmentShop.ItemData[attachment].price
     end
 
@@ -145,6 +151,8 @@ function PANEL:GetShoppingCart()
     self.buyButton:SetColor(hasMoney and VoidUI.Colors.Green or VoidUI.Colors.Red)
     self.buyButton:SetText("Kaufen für " .. DarkRP.formatMoney(attachmentPrice))
     self.buyButton.DoClick = function()
+        if table.IsEmpty(NMG.AttachmentShop.ShoppingCart) then return end
+
         if not hasMoney then
             VoidLib.Notify("Aufsatz Shop", "Du hast nicht genügend Geld um die Aufsätze zu kaufen!", VoidUI.Colors.Red, 5)
             self:Remove()
@@ -152,13 +160,13 @@ function PANEL:GetShoppingCart()
         end
 
         net.Start("NMG.AttachmentShop.BuyAttachments")
-            net.WriteUInt(table.Count(ShoppingCart), 5)
-        for attachment, _ in pairs(ShoppingCart) do
-            net.WriteString(attachment)
-        end
+            net.WriteUInt(table.Count(NMG.AttachmentShop.ShoppingCart), 5)
+            for attachment, _ in pairs(NMG.AttachmentShop.ShoppingCart) do
+                net.WriteString(attachment)
+            end
         net.SendToServer()
 
-        table.Empty(ShoppingCart)
+        table.Empty(NMG.AttachmentShop.ShoppingCart)
         self:Remove()
     end
 end
