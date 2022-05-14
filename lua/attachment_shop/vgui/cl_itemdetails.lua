@@ -33,7 +33,7 @@ function PANEL:OnCursorEntered()
 
         if self.shopdetail then 
             self.hoverdetail:SSetSize(300, 75)
-        else 
+        else
             self.hoverdetail:SSetSize(320, 75)
         end
         self.hoverdetail:Show()
@@ -78,8 +78,13 @@ function PANEL:Paint(w, h)
     surface.DrawTexturedRect(15, 15, 40, 40)
 
     // draws the text
-    draw.SimpleText(self.item.printName, "VoidUI.R26", self:GetWide() / 2 - 70 , 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-    draw.SimpleText(self.item.description, "VoidUI.R18", self:GetWide() / 2 - 70 , 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+    if self.shoppingcartdetail then
+        draw.SimpleText(self.item.printName, "VoidUI.R26", self:GetWide() / 2 - 20, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(self.item.description, "VoidUI.R18", self:GetWide() / 2 - 20, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+    else
+        draw.SimpleText(self.item.printName, "VoidUI.R26", self:GetWide() / 2 - 70, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(self.item.description, "VoidUI.R18", self:GetWide() / 2 - 70, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+    end
 end
 
 vgui.Register("NMG.AttachmentShop.ItemDetails", PANEL, "DButton")
