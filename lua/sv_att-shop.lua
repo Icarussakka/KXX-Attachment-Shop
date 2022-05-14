@@ -17,7 +17,7 @@ net.Receive("NMG.AttachmentShop.BuyAttachments", function(len, ply)
     if not hasMoney then return end
 
     for attachment, _ in pairs(shoppingCart) do
-        CustomizableWeaponry.giveAttachments(ply, {attachment});
+        CustomizableWeaponry.giveAttachments(ply, {attachment})
     end
 
     ply:addMoney(-attachmentPrice)
