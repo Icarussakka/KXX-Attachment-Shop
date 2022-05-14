@@ -37,7 +37,6 @@ net.Receive("NMG.AttachmentShop.SavePreset", function(len, ply)
 
     NMG.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
         if presetItem then
-            print(presetItem)
             VoidLib.Notify(ply, "Aufsatz Shop", "Auf diesem Presets ist bereits etwas gespeichert!", VoidUI.Colors.Red, 5)
             return
         end

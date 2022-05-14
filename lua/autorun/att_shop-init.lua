@@ -18,7 +18,7 @@ if SERVER then
     util.AddNetworkString("NMG.AttachmentShop.SelectPreset")
     util.AddNetworkString("NMG.AttachmentShop.SendPresetToClient")
 
-    include("sv_att-shop.lua")
+    include("attachment_shop/sv_att-shop.lua")
     AddCSLuaFile("attachment_shop/vgui/cl_attachmentshop.lua")
     AddCSLuaFile("attachment_shop/vgui/cl_itemdetails.lua")
     AddCSLuaFile("attachment_shop/sh_att-shop.lua")
