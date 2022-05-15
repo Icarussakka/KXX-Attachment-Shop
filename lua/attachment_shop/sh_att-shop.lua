@@ -57,28 +57,44 @@ end)
 timer.Simple(0, function() //darkrp du hurensohn
     NMG.AttachmentShop.WeaponAttachments = {
         ["cw_ak74"] = {
-            ["cw_attpack_sights_sniper"] = true,
-            ["cw_attpack_sights_cqb"] = true,
+            ["md_eotech"] = true,
         },
         ["cw_ar15"] = {
             ["md_eotech"] = true,
             ["md_aimpoint"] = true,
             ["md_acog"] = true,
         },
+        ["cw_l115"] = {
+
+        },
+        ["cw_g3a3"] = {
+
+        }
     }
 
     NMG.AttachmentShop.ItemData = {
         // add here weapons
         ["cw_ak74"] = {
             printName = "AK-74",
-            icon = " ",
+            icon = "nmg-lmg.png",
             description = "Kaliber: 5.45x39mm",
         },
         ["cw_ar15"] = {
             printName = "AR-15",
-            icon = " ",
+            icon = "nmg-sturmgewehr.png",
             description = "Kaliber: 5.56x45mm",
         },
+        ["cw_l115"] = {
+            printName = "Sniper",
+            icon = "nmg-sniper.png",
+            description = "Kaliber: 50 BMG",
+        },
+        ["cw_g3a3"] = {
+            printName = "Shotgun",
+            icon = "nmg-shotgun.png",
+            description = "Kaliber: Schrot",
+        },
+
 
           // add here attachments
         ["md_eotech"] = {
@@ -101,10 +117,5 @@ timer.Simple(0, function() //darkrp du hurensohn
         },
     }
 
-    if CLIENT then
-        NMG.AttachmentShop.FallbackIcons = {
-            textureFallback = surface.GetTextureID(" "),
-            materialFallback = Material(" "),
-        }
-    end
+    NMG.AttachmentShop.EntityModel = "models/props_c17/display_cooler01a.mdl"
 end)

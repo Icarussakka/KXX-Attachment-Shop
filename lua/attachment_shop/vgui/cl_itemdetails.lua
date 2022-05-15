@@ -80,9 +80,9 @@ function PANEL:Paint(w, h)
     //draws the icon
     surface.SetDrawColor(color_white)
     if self.attachment then
-        surface.SetTexture(surface.GetTextureID(self.item.icon) or NMG.AttachmentShop.FallbackIcons.textureFallback)
+        surface.SetTexture(surface.GetTextureID(self.item.icon))
     else
-        surface.SetMaterial(Material(self.item.icon) or NMG.AttachmentShop.FallbackIcons.materialFallback)
+        surface.SetMaterial(Material(self.item.icon))
     end
     surface.DrawTexturedRect(5, 10, 50, 50)
 

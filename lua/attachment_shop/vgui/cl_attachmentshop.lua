@@ -69,11 +69,14 @@ function PANEL:GetAttachments()
     self.weaponBackgroundPanel:DockMargin(0,70,0,10)
     self.weaponBackgroundPanel:SSetSize(shopPanel:GetWide() / 2 - 45 , 0)
 
+    self.weaponScrollPanel = self.weaponBackgroundPanel:Add("VoidUI.ScrollPanel")
+    self.weaponScrollPanel:Dock(FILL)
+
     for _, wep in ipairs(LocalPlayer():GetWeapons()) do
         local className = wep:GetClass()
         if not NMG.AttachmentShop.WeaponAttachments[className] then continue end
 
-        self.weaponPanel = self.weaponBackgroundPanel:Add("NMG.AttachmentShop.ItemDetails")
+        self.weaponPanel = self.weaponScrollPanel:Add("NMG.AttachmentShop.ItemDetails")
         self.weaponPanel:Dock(TOP)
         self.weaponPanel:DockMargin(0,0,0,10)
         self.weaponPanel:SetItem(className)
@@ -87,8 +90,11 @@ function PANEL:GetAttachments()
             self.attachmentBackgroundPanel:DockMargin(0,70,0,10)
             self.attachmentBackgroundPanel:SSetSize(shopPanel:GetWide() / 2 - 45 , 0)
 
+            self.attachmentScrollPanel = self.attachmentBackgroundPanel:Add("VoidUI.ScrollPanel")
+            self.attachmentScrollPanel:Dock(FILL)
+
             for attachmentData, _ in pairs(NMG.AttachmentShop.WeaponAttachments[className]) do
-                self.attachmentPanel = self.attachmentBackgroundPanel:Add("NMG.AttachmentShop.ItemDetails")
+                self.attachmentPanel = self.attachmentScrollPanel:Add("NMG.AttachmentShop.ItemDetails")
                 self.attachmentPanel:Dock(TOP)
                 self.attachmentPanel:DockMargin(0,0,0,10)
                 self.attachmentPanel:SetItem(attachmentData)
