@@ -30,6 +30,8 @@ function PANEL:GetPresets()
         self.presets:SetColor(VoidUI.Colors.White)
         self.presets.DoClick = function()
             RunConsoleCommand("NMG.AttachmentShop.Preset", i)
+
+            VoidLib.Notify("Aufsatz Shop", "Du hast Preset " .. i .. " ausgewählt.", VoidUI.Colors.Primary, 5)
         end
     end
 
