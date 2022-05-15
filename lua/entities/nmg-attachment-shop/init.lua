@@ -6,7 +6,7 @@ include("shared.lua")
 util.AddNetworkString("NMG.AttachmentShop.SendShop")
 
 function ENT:Initialize()
-    self:SetModel("models/smelter.mdl")
+    self:SetModel(NMG.AttachmentShop.EntityModel)
     self:PhysicsInit(SOLID_VPHYSICS)
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_VPHYSICS)

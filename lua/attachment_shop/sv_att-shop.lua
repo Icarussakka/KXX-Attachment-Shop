@@ -27,7 +27,7 @@ end)
 net.Receive("NMG.AttachmentShop.SavePreset", function(len, ply)
     local shoppingCart = shoppingCart or {}
     local indexNumber = net.ReadUInt(5)
-    local presetID = net.ReadUInt(3)
+    local presetID = net.ReadUInt(4)
 
     for i = 1, indexNumber do
         local attachment = net.ReadString()
@@ -50,7 +50,7 @@ net.Receive("NMG.AttachmentShop.SavePreset", function(len, ply)
 end)
 
 net.Receive("NMG.AttachmentShop.DeletePreset", function(len, ply)
-    local presetID = net.ReadUInt(3)
+    local presetID = net.ReadUInt(4)
 
     NMG.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
         if not presetItem then
@@ -66,7 +66,18 @@ end)
 
 net.Receive("NMG.AttachmentShop.SelectPreset", function(len, ply)
     local shoppingCart = shoppingCart or {}
-    local presetID = net.ReadUInt(3)
+    local presetID = net.ReadUInt(4)
+
+    ply:SetNWInt("NMG.AttachmentShop.AntiCheat", ply:GetNWInt("NMG.AttachmentShop.AntiCheat", 0) + 1)
+
+    timer.Simple(3, function()
+        ply:SetNWInt("NMG.AttachmentShop.AntiCheat", 0)
+    end)
+
+    if ply:GetNWInt("NMG.AttachmentShop.AntiCheat", 0) == 5 then
+        VoidLib.Notify(ply, NMG.AttachmentShop.AntiCheat.msg1, NMG.AttachmentShop.AntiCheat.msg2, VoidUI.Colors.Primary, 30)
+        return
+    end
 
     NMG.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
         if not presetItem then

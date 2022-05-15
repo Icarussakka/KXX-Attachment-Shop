@@ -178,11 +178,3 @@ function PANEL:GetShoppingCart()
 end
 
 vgui.Register("NMG.AttachmentShop.Panel", PANEL, "VoidUI.Frame")
-
-concommand.Add("nmg", function ()
-    local frame = vgui.Create("NMG.AttachmentShop.Panel")
-    frame:GetPresets()
-    frame:GetAttachments()
-    frame:GetShoppingCart()
-end)
-

@@ -11,7 +11,7 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
                 end
 
                 net.Start("NMG.AttachmentShop.DeletePreset")
-                    net.WriteUInt(presetID, 3)
+                    net.WriteUInt(presetID, 4)
                 net.SendToServer()
             end
         },
@@ -27,7 +27,7 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
 
                 net.Start("NMG.AttachmentShop.SavePreset")
                     net.WriteUInt(table.Count(attachmentTable), 5)
-                    net.WriteUInt(presetID, 3)
+                    net.WriteUInt(presetID, 4)
                     for attachment, _ in pairs(attachmentTable) do
                         net.WriteString(attachment)
                     end
@@ -47,7 +47,7 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
                 table.Empty(attachmentTable)
 
                 net.Start("NMG.AttachmentShop.SelectPreset")
-                    net.WriteUInt(presetID, 3)
+                    net.WriteUInt(presetID, 4)
                 net.SendToServer()
             end
         },
