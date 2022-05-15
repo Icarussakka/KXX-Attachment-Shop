@@ -70,7 +70,7 @@ net.Receive("NMG.AttachmentShop.SelectPreset", function(len, ply)
 
     ply:SetNWInt("NMG.AttachmentShop.AntiCheat", ply:GetNWInt("NMG.AttachmentShop.AntiCheat", 0) + 1)
 
-    timer.Simple(3, function()
+    timer.Simple(2, function()
         ply:SetNWInt("NMG.AttachmentShop.AntiCheat", 0)
     end)
 

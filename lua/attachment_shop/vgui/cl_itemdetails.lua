@@ -84,7 +84,7 @@ function PANEL:Paint(w, h)
     else
         surface.SetMaterial(Material(self.item.icon))
     end
-    surface.DrawTexturedRect(5, 10, 50, 50)
+    surface.DrawTexturedRect(7.5, 10, 50, 50)
 
     draw.RoundedBox(0, 65, 5, 1, h - 10, VoidUI.Colors.White)
 
