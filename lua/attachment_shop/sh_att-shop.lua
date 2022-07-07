@@ -1,5 +1,5 @@
-hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
-    NMG.AttachmentShop.PresetButton = {
+hook.Add("VoidLib.Loaded", "KXX.AttShop.watingForVoidlib", function()
+    KXX.AttachmentShop.PresetButton = {
         //Delete Button
         {
             name = "Löschen",
@@ -10,7 +10,7 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
                     return
                 end
 
-                net.Start("NMG.AttachmentShop.DeletePreset")
+                net.Start("KXX.AttachmentShop.DeletePreset")
                     net.WriteUInt(presetID, 4)
                 net.SendToServer()
             end
@@ -25,7 +25,7 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
                     return
                 end
 
-                net.Start("NMG.AttachmentShop.SavePreset")
+                net.Start("KXX.AttachmentShop.SavePreset")
                     net.WriteUInt(table.Count(attachmentTable), 5)
                     net.WriteUInt(presetID, 4)
                     for attachment, _ in pairs(attachmentTable) do
@@ -46,7 +46,7 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
 
                 table.Empty(attachmentTable)
 
-                net.Start("NMG.AttachmentShop.SelectPreset")
+                net.Start("KXX.AttachmentShop.SelectPreset")
                     net.WriteUInt(presetID, 4)
                 net.SendToServer()
             end
@@ -55,12 +55,12 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
 end)
 
 timer.Simple(0, function()
-    NMG.AttachmentShop.ItemData = {
+    KXX.AttachmentShop.ItemData = {
         // add here weapons
-        ["cw_ak74"] = "nmg-lmg.png",
-        ["cw_ar15"] = "nmg-sturmgewehr.png",
-        ["cw_l115"] = "nmg-sniper.png",
-        ["cw_g3a3"] = "nmg-shotgun.png",
+        ["cw_ak74"] = "KXX-lmg.png",
+        ["cw_ar15"] = "KXX-sturmgewehr.png",
+        ["cw_l115"] = "KXX-sniper.png",
+        ["cw_g3a3"] = "KXX-shotgun.png",
 
         // add here attachments
         ["md_eotech"] = 300,
@@ -68,8 +68,8 @@ timer.Simple(0, function()
         ["md_acog"] = 200,
     }
 
-    NMG.AttachmentShop.FallbackPrice = 250
-    NMG.AttachmentShop.FallbackIcon = "nmg-sturmgewehr.png"
-    NMG.AttachmentShop.EntityModel = "models/props_c17/display_cooler01a.mdl"
+    KXX.AttachmentShop.FallbackPrice = 250
+    KXX.AttachmentShop.FallbackIcon = "KXX-sturmgewehr.png"
+    KXX.AttachmentShop.EntityModel = "models/props_c17/display_cooler01a.mdl"
 end)
 

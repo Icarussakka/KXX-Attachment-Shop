@@ -32,8 +32,8 @@ function ENT:Draw()
     cam.End3D2D()
 end
 
-net.Receive("NMG.AttachmentShop.SendShop", function (len)
-    local attachmentShop = vgui.Create("NMG.AttachmentShop.Panel")
+net.Receive("KXX.AttachmentShop.SendShop", function (len)
+    local attachmentShop = vgui.Create("KXX.AttachmentShop.Panel")
     attachmentShop:GetPresets()
     attachmentShop:GetAttachments()
     attachmentShop:GetShoppingCart()

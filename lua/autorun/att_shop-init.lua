@@ -1,22 +1,22 @@
-NMG = NMG or {}
-NMG.AttachmentShop = NMG.AttachmentShop or {}
+KXX = KXX or {}
+KXX.AttachmentShop = KXX.AttachmentShop or {}
 
 if SERVER then
     if (VoidLib) then
         include("attachment_shop/sv_database.lua")
-        print("[NMG] Attachment Shop Loaded")
+        print("[KXX] Attachment Shop Loaded")
     else
-        hook.Add("VoidLib.Loaded", "NMG.AttachmentShop.Init.WaitForVoidLib", function ()
+        hook.Add("VoidLib.Loaded", "KXX.AttachmentShop.Init.WaitForVoidLib", function ()
             include("attachment_shop/sv_database.lua")
-            print("[NMG] Attachment Shop Loaded")
+            print("[KXX] Attachment Shop Loaded")
         end)
     end
 
-    util.AddNetworkString("NMG.AttachmentShop.BuyAttachments")
-    util.AddNetworkString("NMG.AttachmentShop.DeletePreset")
-    util.AddNetworkString("NMG.AttachmentShop.SavePreset")
-    util.AddNetworkString("NMG.AttachmentShop.SelectPreset")
-    util.AddNetworkString("NMG.AttachmentShop.SendPresetToClient")
+    util.AddNetworkString("KXX.AttachmentShop.BuyAttachments")
+    util.AddNetworkString("KXX.AttachmentShop.DeletePreset")
+    util.AddNetworkString("KXX.AttachmentShop.SavePreset")
+    util.AddNetworkString("KXX.AttachmentShop.SelectPreset")
+    util.AddNetworkString("KXX.AttachmentShop.SendPresetToClient")
 
     include("attachment_shop/sv_att-shop.lua")
     AddCSLuaFile("attachment_shop/vgui/cl_attachmentshop.lua")

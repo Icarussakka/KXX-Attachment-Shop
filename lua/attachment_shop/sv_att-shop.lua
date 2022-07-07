@@ -1,4 +1,4 @@
-net.Receive("NMG.AttachmentShop.BuyAttachments", function(len, ply)
+net.Receive("KXX.AttachmentShop.BuyAttachments", function(len, ply)
     local shoppingCart = shoppingCart or {}
     local indexNumber = net.ReadUInt(5)
 
@@ -10,7 +10,7 @@ net.Receive("NMG.AttachmentShop.BuyAttachments", function(len, ply)
 
     local attachmentPrice = 0
     for attachment, _ in pairs(shoppingCart) do
-        attachmentPrice = attachmentPrice + NMG.AttachmentShop.ItemData[attachment].price
+        attachmentPrice = attachmentPrice + KXX.AttachmentShop.ItemData[attachment].price
     end
 
     local hasMoney = ply:canAfford(attachmentPrice)
@@ -24,7 +24,7 @@ net.Receive("NMG.AttachmentShop.BuyAttachments", function(len, ply)
     VoidLib.Notify(ply, "Aufsatz Shop", "Du hast Aufsätze im Wert von " .. DarkRP.formatMoney(attachmentPrice) .. " gekauft!", VoidUI.Colors.Green, 5)
 end)
 
-net.Receive("NMG.AttachmentShop.SavePreset", function(len, ply)
+net.Receive("KXX.AttachmentShop.SavePreset", function(len, ply)
     local shoppingCart = shoppingCart or {}
     local indexNumber = net.ReadUInt(5)
     local presetID = net.ReadUInt(4)
@@ -35,40 +35,40 @@ net.Receive("NMG.AttachmentShop.SavePreset", function(len, ply)
         shoppingCart[attachment] = true
     end
 
-    NMG.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
+    KXX.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
         if presetItem then
             VoidLib.Notify(ply, "Aufsatz Shop", "Auf diesem Presets ist bereits etwas gespeichert!", VoidUI.Colors.Red, 5)
             return
         end
 
         for attachment, _ in pairs(shoppingCart) do
-            NMG.AttachmentShop.InsertPresetItem(ply:SteamID64(), presetID, attachment)
+            KXX.AttachmentShop.InsertPresetItem(ply:SteamID64(), presetID, attachment)
         end
 
         VoidLib.Notify(ply, "Aufsatz Shop", "Du hast erfolgreich das Preset " .. presetID .. " gespeichert.", VoidUI.Colors.Green, 5)
     end)
 end)
 
-net.Receive("NMG.AttachmentShop.DeletePreset", function(len, ply)
+net.Receive("KXX.AttachmentShop.DeletePreset", function(len, ply)
     local presetID = net.ReadUInt(4)
 
-    NMG.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
+    KXX.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
         if not presetItem then
             VoidLib.Notify(ply, "Aufsatz Shop", "Auf diesem Preset ist nichts gespeichert.", VoidUI.Colors.Red, 5)
             return
         end
 
-        NMG.AttachmentShop.DeletePreset(ply:SteamID64(), presetID)
+        KXX.AttachmentShop.DeletePreset(ply:SteamID64(), presetID)
 
         VoidLib.Notify(ply, "Aufsatz Shop", "Du hast erfolgreich das Preset " .. presetID .. " gelöscht.", VoidUI.Colors.Green, 5)
     end)
 end)
 
-net.Receive("NMG.AttachmentShop.SelectPreset", function(len, ply)
+net.Receive("KXX.AttachmentShop.SelectPreset", function(len, ply)
     local shoppingCart = shoppingCart or {}
     local presetID = net.ReadUInt(4)
 
-    NMG.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
+    KXX.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
         if not presetItem then
             VoidLib.Notify(ply, "Aufsatz Shop", "Auf diesem Preset ist nichts gespeichert.", VoidUI.Colors.Red, 5)
             return
@@ -77,7 +77,7 @@ net.Receive("NMG.AttachmentShop.SelectPreset", function(len, ply)
         shoppingCart[presetItem] = true
     end)
 
-    net.Start("NMG.AttachmentShop.SendPresetToClient")
+    net.Start("KXX.AttachmentShop.SendPresetToClient")
         net.WriteUInt(table.Count(shoppingCart), 5)
         for attachment, _ in pairs(shoppingCart) do
             net.WriteString(attachment)

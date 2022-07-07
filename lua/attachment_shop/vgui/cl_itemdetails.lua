@@ -83,7 +83,7 @@ function PANEL:Paint(w, h)
     if self.attachment then
         surface.SetTexture(self.item.displayIcon)
     else
-        surface.SetMaterial(Material(NMG.AttachmentShop.ItemData[self.classname:GetClass()]))
+        surface.SetMaterial(Material(KXX.AttachmentShop.ItemData[self.classname:GetClass()]))
     end
     surface.DrawTexturedRect(7.5, 10, 50, 50)
 
@@ -97,12 +97,12 @@ function PANEL:Paint(w, h)
 
     if self.shoppingcartdetail then
         draw.SimpleText(self.item.displayName, "VoidUI.R26", self:GetWide() / 2 - 20, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-        draw.SimpleText(DarkRP.formatMoney(NMG.AttachmentShop.ItemData[self.classname] or NMG.AttachmentShop.FallbackPrice), "VoidUI.R18", self:GetWide() / 2 - 20, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+        draw.SimpleText(DarkRP.formatMoney(KXX.AttachmentShop.ItemData[self.classname] or KXX.AttachmentShop.FallbackPrice), "VoidUI.R18", self:GetWide() / 2 - 20, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
     else
         draw.SimpleText(self.item.displayName, "VoidUI.R26", self:GetWide() / 2 - 70, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-        draw.SimpleText(DarkRP.formatMoney(NMG.AttachmentShop.ItemData[self.classname] or NMG.AttachmentShop.FallbackPrice), "VoidUI.R18", self:GetWide() / 2 - 70, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+        draw.SimpleText(DarkRP.formatMoney(KXX.AttachmentShop.ItemData[self.classname] or KXX.AttachmentShop.FallbackPrice), "VoidUI.R18", self:GetWide() / 2 - 70, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
     end
 end
 
-vgui.Register("NMG.AttachmentShop.ItemDetails", PANEL, "DButton")
+vgui.Register("KXX.AttachmentShop.ItemDetails", PANEL, "DButton")
 

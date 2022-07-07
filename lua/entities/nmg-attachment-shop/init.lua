@@ -3,10 +3,10 @@ AddCSLuaFile("shared.lua")
 
 include("shared.lua")
 
-util.AddNetworkString("NMG.AttachmentShop.SendShop")
+util.AddNetworkString("KXX.AttachmentShop.SendShop")
 
 function ENT:Initialize()
-    self:SetModel(NMG.AttachmentShop.EntityModel)
+    self:SetModel(KXX.AttachmentShop.EntityModel)
     self:PhysicsInit(SOLID_VPHYSICS)
     self:SetMoveType(MOVETYPE_NONE)
     self:SetSolid(SOLID_VPHYSICS)
@@ -24,7 +24,7 @@ function ENT:Use(ply, activator)
     if cd then return end
     cd = true
 
-    net.Start("NMG.AttachmentShop.SendShop")
+    net.Start("KXX.AttachmentShop.SendShop")
     net.Send(ply)
     timer.Simple(0.1, function() cd = false end)
 end
