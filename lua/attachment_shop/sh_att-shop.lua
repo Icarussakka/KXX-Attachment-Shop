@@ -54,68 +54,22 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
     }
 end)
 
-timer.Simple(0, function() //darkrp du hurensohn
-    -- NMG.AttachmentShop.WeaponAttachments = {
-    --     ["cw_ak74"] = {
-    --         ["md_eotech"] = true,
-    --     },
-    --     ["cw_ar15"] = {
-    --         ["md_eotech"] = true,
-    --         ["md_aimpoint"] = true,
-    --         ["md_acog"] = true,
-    --     },
-    --     ["cw_l115"] = {
-
-    --     },
-    --     ["cw_g3a3"] = {
-
-    --     }
-    -- }
-
+timer.Simple(0, function()
     NMG.AttachmentShop.ItemData = {
         // add here weapons
-        ["cw_ak74"] = {
-            printName = "AK-74",
-            icon = "nmg-lmg.png",
-            description = "Kaliber: 5.45x39mm",
-        },
-        ["cw_ar15"] = {
-            printName = "AR-15",
-            icon = "nmg-sturmgewehr.png",
-            description = "Kaliber: 5.56x45mm",
-        },
-        ["cw_l115"] = {
-            printName = "Sniper",
-            icon = "nmg-sniper.png",
-            description = "Kaliber: 50 BMG",
-        },
-        ["cw_g3a3"] = {
-            printName = "Shotgun",
-            icon = "nmg-shotgun.png",
-            description = "Kaliber: Schrot",
-        },
+        ["cw_ak74"] = "nmg-lmg.png",
+        ["cw_ar15"] = "nmg-sturmgewehr.png",
+        ["cw_l115"] = "nmg-sniper.png",
+        ["cw_g3a3"] = "nmg-shotgun.png",
 
-
-          // add here attachments
-        ["md_eotech"] = {
-            printName = "EoTech",
-            price = 500,
-            icon = "atts/eotech553",
-            description = "Preis | " .. DarkRP.formatMoney(500),
-        },
-        ["md_aimpoint"] = {
-            printName = "Aimpoint",
-            price = 1800,
-            icon = "atts/compm4",
-            description = "Preis | " .. DarkRP.formatMoney(1800),
-        },
-        ["md_acog"] = {
-            printName = "ACOG",
-            price = 100,
-            icon = "atts/acog",
-            description = "Preis | " .. DarkRP.formatMoney(100),
-        },
+        // add here attachments
+        ["md_eotech"] = 300,
+        ["md_aimpoint"] = 600,
+        ["md_acog"] = 200,
     }
 
+    NMG.AttachmentShop.FallbackPrice = 250
+    NMG.AttachmentShop.FallbackIcon = "nmg-sturmgewehr.png"
     NMG.AttachmentShop.EntityModel = "models/props_c17/display_cooler01a.mdl"
 end)
+

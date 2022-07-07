@@ -89,16 +89,10 @@ function PANEL:GetAttachments()
             end
         end
 
-        //NMG.AttachmentShop.WeaponAttachments = nil
-
-        //PrintTable(wep.Attachments)
-        print(wep.CW20Weapon)
-        PrintTable(NMG.AttachmentShop.WeaponAttachments)
-
         self.weaponPanel = self.weaponScrollPanel:Add("NMG.AttachmentShop.ItemDetails")
         self.weaponPanel:Dock(TOP)
         self.weaponPanel:DockMargin(0,0,0,10)
-        self.weaponPanel:SetItem(className)
+        self.weaponPanel:SetItem(wep)
         self.weaponPanel.DoClick = function ()
             if IsValid(self.attachmentBackgroundPanel) then
                 self.attachmentBackgroundPanel:Remove()
@@ -112,7 +106,7 @@ function PANEL:GetAttachments()
             self.attachmentScrollPanel = self.attachmentBackgroundPanel:Add("VoidUI.ScrollPanel")
             self.attachmentScrollPanel:Dock(FILL)
 
-            for attachmentData, _ in pairs(NMG.AttachmentShop.WeaponAttachments[className]) do
+            for _, attachmentData in pairs(NMG.AttachmentShop.WeaponAttachments[className]) do
                 self.attachmentPanel = self.attachmentScrollPanel:Add("NMG.AttachmentShop.ItemDetails")
                 self.attachmentPanel:Dock(TOP)
                 self.attachmentPanel:DockMargin(0,0,0,10)
@@ -164,7 +158,7 @@ function PANEL:GetShoppingCart()
 
     local attachmentPrice = 0
     for attachment, _ in pairs(NMG.AttachmentShop.ShoppingCart) do
-        attachmentPrice = attachmentPrice + NMG.AttachmentShop.ItemData[attachment].price
+        attachmentPrice = attachmentPrice + (NMG.AttachmentShop.ItemData[attachment] or NMG.AttachmentShop.FallbackPrice)
     end
 
     local hasMoney = LocalPlayer():canAfford(attachmentPrice)
