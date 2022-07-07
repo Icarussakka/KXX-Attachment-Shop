@@ -55,22 +55,22 @@ hook.Add("VoidLib.Loaded", "NMG.AttShop.watingForVoidlib", function()
 end)
 
 timer.Simple(0, function() //darkrp du hurensohn
-    NMG.AttachmentShop.WeaponAttachments = {
-        ["cw_ak74"] = {
-            ["md_eotech"] = true,
-        },
-        ["cw_ar15"] = {
-            ["md_eotech"] = true,
-            ["md_aimpoint"] = true,
-            ["md_acog"] = true,
-        },
-        ["cw_l115"] = {
+    -- NMG.AttachmentShop.WeaponAttachments = {
+    --     ["cw_ak74"] = {
+    --         ["md_eotech"] = true,
+    --     },
+    --     ["cw_ar15"] = {
+    --         ["md_eotech"] = true,
+    --         ["md_aimpoint"] = true,
+    --         ["md_acog"] = true,
+    --     },
+    --     ["cw_l115"] = {
 
-        },
-        ["cw_g3a3"] = {
+    --     },
+    --     ["cw_g3a3"] = {
 
-        }
-    }
+    --     }
+    -- }
 
     NMG.AttachmentShop.ItemData = {
         // add here weapons

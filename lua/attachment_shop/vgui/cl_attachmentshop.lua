@@ -1,5 +1,6 @@
 local PANEL = {}
 NMG.AttachmentShop.ShoppingCart = NMG.AttachmentShop.ShoppingCart or {}
+NMG.AttachmentShop.WeaponAttachments = NMG.AttachmentShop.WeaponAttachments or {}
 
 function PANEL:Init()
     self:SetTitle("Aufsatz Händler")
@@ -75,8 +76,24 @@ function PANEL:GetAttachments()
     self.weaponScrollPanel:Dock(FILL)
 
     for _, wep in ipairs(LocalPlayer():GetWeapons()) do
+        if not wep.CW20Weapon then continue end
         local className = wep:GetClass()
-        if not NMG.AttachmentShop.WeaponAttachments[className] then continue end
+
+        if not NMG.AttachmentShop.WeaponAttachments[className] then
+            NMG.AttachmentShop.WeaponAttachments[className] = NMG.AttachmentShop.WeaponAttachments[className] or {}
+
+            for _, attachmentType in pairs(wep.Attachments) do
+                for _, attachmentName in pairs(attachmentType.atts) do
+                    table.insert(NMG.AttachmentShop.WeaponAttachments[className], attachmentName)
+                end
+            end
+        end
+
+        //NMG.AttachmentShop.WeaponAttachments = nil
+
+        //PrintTable(wep.Attachments)
+        print(wep.CW20Weapon)
+        PrintTable(NMG.AttachmentShop.WeaponAttachments)
 
         self.weaponPanel = self.weaponScrollPanel:Add("NMG.AttachmentShop.ItemDetails")
         self.weaponPanel:Dock(TOP)
