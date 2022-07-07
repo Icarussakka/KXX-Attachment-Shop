@@ -68,17 +68,6 @@ net.Receive("NMG.AttachmentShop.SelectPreset", function(len, ply)
     local shoppingCart = shoppingCart or {}
     local presetID = net.ReadUInt(4)
 
-    ply:SetNWInt("NMG.AttachmentShop.AntiCheat", ply:GetNWInt("NMG.AttachmentShop.AntiCheat", 0) + 1)
-
-    timer.Simple(2, function()
-        ply:SetNWInt("NMG.AttachmentShop.AntiCheat", 0)
-    end)
-
-    if ply:GetNWInt("NMG.AttachmentShop.AntiCheat", 0) == 5 then
-        VoidLib.Notify(ply, NMG.AttachmentShop.AntiCheat.msg1, NMG.AttachmentShop.AntiCheat.msg2, VoidUI.Colors.Primary, 30)
-        return
-    end
-
     NMG.AttachmentShop.SelectPresetItem(ply:SteamID64(), presetID, function(presetItem)
         if not presetItem then
             VoidLib.Notify(ply, "Aufsatz Shop", "Auf diesem Preset ist nichts gespeichert.", VoidUI.Colors.Red, 5)

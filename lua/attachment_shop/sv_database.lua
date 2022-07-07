@@ -1,8 +1,3 @@
-NMG.AttachmentShop.AntiCheat = {
-    msg1 = "Easter Egg",
-    msg2 = "Das Addon wurde von kxx gecodet. id/feministenjaeger | ベン「Kreannix」#0886 :)"
-}
-
 local database = VoidLib.Database:Create({
     host = "localhost",
     username = "username",
