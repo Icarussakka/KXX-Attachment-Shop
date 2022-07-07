@@ -10,7 +10,7 @@ net.Receive("KXX.AttachmentShop.BuyAttachments", function(len, ply)
 
     local attachmentPrice = 0
     for attachment, _ in pairs(shoppingCart) do
-        attachmentPrice = attachmentPrice + KXX.AttachmentShop.ItemData[attachment].price
+        attachmentPrice = attachmentPrice + (KXX.AttachmentShop.ItemData[attachment] or KXX.AttachmentShop.FallbackPrice)
     end
 
     local hasMoney = ply:canAfford(attachmentPrice)

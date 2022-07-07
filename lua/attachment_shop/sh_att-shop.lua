@@ -57,10 +57,10 @@ end)
 timer.Simple(0, function()
     KXX.AttachmentShop.ItemData = {
         // add here weapons
-        ["cw_ak74"] = "KXX-lmg.png",
-        ["cw_ar15"] = "KXX-sturmgewehr.png",
-        ["cw_l115"] = "KXX-sniper.png",
-        ["cw_g3a3"] = "KXX-shotgun.png",
+        ["cw_ak74"] = "nmg-lmg.png",
+        ["cw_ar15"] = "nmg-sturmgewehr.png",
+        ["cw_l115"] = "nmg-sniper.png",
+        ["cw_g3a3"] = "nmg-shotgun.png",
 
         // add here attachments
         ["md_eotech"] = 300,
@@ -69,7 +69,7 @@ timer.Simple(0, function()
     }
 
     KXX.AttachmentShop.FallbackPrice = 250
-    KXX.AttachmentShop.FallbackIcon = "KXX-sturmgewehr.png"
+    KXX.AttachmentShop.FallbackIcon = "nmg-sturmgewehr.png"
     KXX.AttachmentShop.EntityModel = "models/props_c17/display_cooler01a.mdl"
 end)
 

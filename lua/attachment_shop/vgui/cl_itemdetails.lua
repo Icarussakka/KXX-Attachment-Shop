@@ -83,7 +83,7 @@ function PANEL:Paint(w, h)
     if self.attachment then
         surface.SetTexture(self.item.displayIcon)
     else
-        surface.SetMaterial(Material(KXX.AttachmentShop.ItemData[self.classname:GetClass()]))
+        surface.SetMaterial(Material(KXX.AttachmentShop.ItemData[self.classname:GetClass()] or KXX.AttachmentShop.FallbackIcon))
     end
     surface.DrawTexturedRect(7.5, 10, 50, 50)
 
