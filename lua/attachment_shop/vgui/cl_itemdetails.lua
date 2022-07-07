@@ -5,7 +5,8 @@ function PANEL:SetAttachment(bool)
 end
 
 function PANEL:SetItem(classname)
-    self.item = NMG.AttachmentShop.ItemData[classname]
+    self.classname = classname
+    self.item = CustomizableWeaponry.registeredAttachmentsSKey[classname]
 end
 
 function PANEL:ShopDetail(bool)
@@ -57,7 +58,7 @@ function PANEL:OnCursorEntered()
 end
 
 function PANEL:OnCursorExited()
-    if  self.shopdetail or self.shoppingcartdetail then
+    if self.shopdetail or self.shoppingcartdetail then
         if not IsValid(self.hoverdetail) then return end
 
         self.hoverdetail:Remove()
@@ -80,21 +81,26 @@ function PANEL:Paint(w, h)
     //draws the icon
     surface.SetDrawColor(color_white)
     if self.attachment then
-        surface.SetTexture(surface.GetTextureID(self.item.icon))
+        surface.SetTexture(self.item.displayIcon)
     else
-        surface.SetMaterial(Material(self.item.icon))
+        surface.SetMaterial(Material(NMG.AttachmentShop.ItemData[self.classname:GetClass()]))
     end
     surface.DrawTexturedRect(7.5, 10, 50, 50)
 
     draw.RoundedBox(0, 65, 5, 1, h - 10, VoidUI.Colors.White)
 
     // draws the text
+    if not self.attachment then
+        draw.SimpleText(self.classname.PrintName, "VoidUI.R26", self:GetWide() / 2 - 20, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        return
+    end
+
     if self.shoppingcartdetail then
-        draw.SimpleText(self.item.printName, "VoidUI.R26", self:GetWide() / 2 - 20, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-        draw.SimpleText(self.item.description, "VoidUI.R18", self:GetWide() / 2 - 20, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+        draw.SimpleText(self.item.displayName, "VoidUI.R26", self:GetWide() / 2 - 20, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(DarkRP.formatMoney(NMG.AttachmentShop.ItemData[self.classname]) or NMG.AttachmentShop.FallbackPrice, "VoidUI.R18", self:GetWide() / 2 - 20, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
     else
-        draw.SimpleText(self.item.printName, "VoidUI.R26", self:GetWide() / 2 - 70, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-        draw.SimpleText(self.item.description, "VoidUI.R18", self:GetWide() / 2 - 70, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+        draw.SimpleText(self.item.displayName, "VoidUI.R26", self:GetWide() / 2 - 70, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(DarkRP.formatMoney(NMG.AttachmentShop.ItemData[self.classname]) or NMG.AttachmentShop.FallbackPrice, "VoidUI.R18", self:GetWide() / 2 - 70, 40, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
     end
 end
 
