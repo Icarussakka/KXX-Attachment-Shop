@@ -91,7 +91,7 @@ function PANEL:Paint(w, h)
 
     // draws the text
     if not self.attachment then
-        draw.SimpleText(self.classname.PrintName, "VoidUI.R26", self:GetWide() / 2 - 20, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+        draw.SimpleText(self.classname.PrintName, "VoidUI.R26", self:GetWide() / 2 - 50, 20, VoidUI.Colors.White, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
         return
     end
 

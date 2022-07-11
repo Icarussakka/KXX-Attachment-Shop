@@ -77,6 +77,8 @@ function PANEL:GetAttachments()
 
     for _, wep in ipairs(LocalPlayer():GetWeapons()) do
         if not wep.CW20Weapon then continue end
+        if table.IsEmpty(wep.Attachments) then continue end
+
         local className = wep:GetClass()
 
         if not KXX.AttachmentShop.WeaponAttachments[className] then
